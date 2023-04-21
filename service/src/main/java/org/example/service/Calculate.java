@@ -1,5 +1,5 @@
 package org.example.service;
 
 public interface Calculate {
-    int sum(int a, int b);
+    int result(int a, int b);
 }
