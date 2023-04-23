@@ -25,10 +25,10 @@ public class Consumer {
             choice = s.nextInt();
             var methods = classesArray[choice].getMethods();
             var instance = classesArray[choice].getConstructor().newInstance();
-            if (methods[0].getReturnType().equals(int.class) && methods[0].getParameterCount() == 2) {
+            if (methods[0].getReturnType().equals(double.class) && methods[0].getParameterCount() == 2) {
                 System.out.println("write 2 numbers");
-                int a = s.nextInt();
-                int b = s.nextInt();
+                double a = s.nextDouble();
+                double b = s.nextDouble();
                 var result = methods[0].invoke(instance, a, b);
                 System.out.println(result);
             }
@@ -42,7 +42,7 @@ public class Consumer {
             if(annotation!= null){
                 var methods = classesArray[i].getMethods();
                 for (var method : methods) {
-                    if (method.getReturnType().equals(int.class) && method.getParameterCount() == 2) {
+                    if (method.getReturnType().equals(double.class) && method.getParameterCount() == 2) {
                         System.out.println(i + ": " + annotation.value());
                     }
                 }

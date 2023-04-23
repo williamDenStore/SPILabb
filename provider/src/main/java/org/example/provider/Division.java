@@ -7,7 +7,7 @@ import org.example.service.annotation.Operator;
 public class Division implements Calculate {
 
     @Override
-    public int result(int a, int b) {
+    public double result(double a, double b) {
         return a/b;
     }
 }

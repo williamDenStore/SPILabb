@@ -6,7 +6,7 @@ import org.example.service.annotation.Operator;
 @Operator("addition")
 public class Addition implements Calculate{
 
-    public int result(int a, int b) {
+    public double result(double a, double b) {
         return a+b;
     }
 }
