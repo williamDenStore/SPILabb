@@ -15,10 +15,30 @@ public class Consumer {
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException {
         Set<Class> classes = findAllClasses("org.example.provider");
         Class[] classesArray = classes.toArray(new Class[0]);
+        chooseMethod(classesArray);
+    }
 
+    private static void chooseMethod(Class[] classesArray) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        int choice=-2;
+        while(choice!=-1) {
+            printOptions(classesArray);
+            choice = s.nextInt();
+            var methods = classesArray[choice].getMethods();
+            var instance = classesArray[choice].getConstructor().newInstance();
+            if (methods[0].getReturnType().equals(int.class) && methods[0].getParameterCount() == 2) {
+                System.out.println("write 2 numbers");
+                int a = s.nextInt();
+                int b = s.nextInt();
+                var result = methods[0].invoke(instance, a, b);
+                System.out.println(result);
+            }
+        }
+    }
+
+    private static void printOptions(Class[] classesArray) {
         System.out.println("choose one option");
         for (int i = 0; i < classesArray.length; i++){
-            var annotation = (Operator)classesArray[i].getAnnotation(Operator.class);
+            var annotation = (Operator) classesArray[i].getAnnotation(Operator.class);
             if(annotation!= null){
                 var methods = classesArray[i].getMethods();
                 for (var method : methods) {
@@ -29,18 +49,9 @@ public class Consumer {
             }
 
         }
-        int choice = s.nextInt();
-        var me = classesArray[choice].getMethods();
-        var o = classesArray[choice].getConstructor().newInstance();
-        if (me[0].getReturnType().equals(int.class) && me[0].getParameterCount() == 2){
-            System.out.println("write 2 numbers");
-            int a = s.nextInt();
-            int b = s.nextInt();
-            var s  = me[0].invoke(o,a,b);
-            System.out.println(s);
-        }
-
+        System.out.println("-1: exit application");
     }
+
     private static Set<Class> findAllClasses(String packageName) throws IOException {
         InputStream stream = ClassLoader.getSystemClassLoader()
                 .getResourceAsStream(packageName.replaceAll("[.]", "/"));
