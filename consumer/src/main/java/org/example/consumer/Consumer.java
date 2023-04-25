@@ -2,18 +2,15 @@ package org.example.consumer;
 
 import org.example.service.Calculate;
 import org.example.service.annotation.Operator;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import java.util.spi.LocaleServiceProvider;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.ServiceLoader;
 
 public class Consumer {
     static Scanner s = new Scanner(System.in);
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException {
+    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         ServiceLoader<Calculate> loader = ServiceLoader.load(Calculate.class);
         List<Calculate> calculateList = new ArrayList<>();
         for(var a : loader){
@@ -23,8 +20,8 @@ public class Consumer {
     }
 
     private static void chooseMethod(Object[] classesArray) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        int choice=-2;
-        while(choice!=-1) {
+        int choice;
+        while(true) {
             printOptions(classesArray);
             choice =s.nextInt();
             if (choice==-1)

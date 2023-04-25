@@ -1,3 +1,8 @@
+FROM maven:3.8.7-eclipse-temurin-19 as build
+WORKDIR /app
+COPY . .
+RUN mvn package
+
 FROM eclipse-temurin:19-jre-alpine
 
 WORKDIR /app
@@ -7,9 +12,8 @@ COPY service/target/service-1.0-SNAPSHOT.jar /app/service.jar
 
 EXPOSE 8080
 
-#ENTRYPOINT ["java", "--module-path", "/app/provider:/app/service:/app/consumer", "-m", "org.example.consumer/org.example.consumer.Consumer"]
 ENTRYPOINT ["java", "--module-path", "/app", "-m", "org.example.consumer/org.example.consumer.Consumer"]
-#ENTRYPOINT ["java", "--module-path", "./", "-m", "org.example.consumer/org.example.consumer.Consumer"]
+
 
 
 
