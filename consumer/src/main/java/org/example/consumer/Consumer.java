@@ -11,6 +11,10 @@ import java.util.ServiceLoader;
 public class Consumer {
     static Scanner s = new Scanner(System.in);
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        run();
+    }
+
+    public static void run() throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         ServiceLoader<Calculate> loader = ServiceLoader.load(Calculate.class);
         List<Calculate> calculateList = new ArrayList<>();
         for(var a : loader){
